@@ -821,6 +821,7 @@ int main( int argc, char **argv )
         if( randomly_lose_flag ) fprintf( stderr, "  randomly_lose_flag set\n" );
         if( sent_times_flag ) fprintf( stderr, "  sent_times_flag set\n" );
         if( print_per_system_flag ) fprintf( stderr, "  print_per_system_flag set\n" );
+        if( timestamp_flag ) fprintf( stderr, "  timestamp_flag set\n" );
 
     }/* IF */
 #endif /* DEBUG || _DEBUG */
@@ -1634,7 +1635,7 @@ int send_ping( int s, HOST_ENTRY *h )
 
 void print_ts(){
   time_t timer;
-  char buf [80];
+  char buf [12];
   timer = time(NULL);
   
   strftime(buf, sizeof(buf), "%H:%M:%S ", localtime(&timer));
