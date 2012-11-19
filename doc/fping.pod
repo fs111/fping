@@ -175,6 +175,10 @@ Show targets that are unreachable.
 Set the typ of service flag (TOS). I<n> can be either decimal or hexadecimal
 (0xh) format. 
 
+=item B<-x>
+
+Print timestamps to stdout
+
 =item B<-v>
 
 Print B<fping> version information. 
