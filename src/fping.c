@@ -1613,6 +1613,33 @@ int send_ping( int s, HOST_ENTRY *h )
 
 /************************************************************
 
+  Function: print_ts
+
+*************************************************************
+
+  Inputs:  void (none)
+
+  Returns:  void(none)
+
+  Description: prints the current timestamp to stdout
+  
+
+************************************************************/
+
+
+void print_ts(){
+  time_t timer;
+  char buf [80];
+  timer = time(NULL);
+  
+  strftime(buf, sizeof(buf), "%H:%M:%S ", localtime(&timer));
+
+  printf("%s", buf);
+}
+
+
+/************************************************************
+
   Function: wait_for_reply
 
 *************************************************************
@@ -1823,6 +1850,7 @@ int wait_for_reply(long wait_time)
     if( per_recv_flag )
     {
         avg = h->total_time / h->num_recv;
+        print_ts();
         printf( "%s%s : [%d], %d bytes, %s ms",
             h->host, h->pad, this_count, result, sprint_tm( this_reply ) );
         printf( " (%s avg, ", sprint_tm( avg ) );
