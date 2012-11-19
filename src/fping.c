@@ -309,7 +309,7 @@ struct timezone tz;
 
 /* switches */
 int generate_flag = 0;              /* flag for IP list generation */
-int verbose_flag, quiet_flag, stats_flag, unreachable_flag, alive_flag;
+int verbose_flag, quiet_flag, stats_flag, unreachable_flag, alive_flag, timestamp_flag;
 int elapsed_flag, version_flag, count_flag, loop_flag;
 int per_recv_flag, report_all_rtts_flag, name_flag, addr_flag, backoff_flag;
 int multif_flag;
@@ -488,10 +488,11 @@ int main( int argc, char **argv )
     verbose_flag = 1;
     backoff_flag = 1;
     opterr = 1;
+    timestamp_flag = 0;
 
     /* get command line options */
 
-    while( ( c = getopt( argc, argv, "gedhlmnqusaAvz:t:H:i:p:f:r:c:b:C:Q:B:S:I:T:O:" ) ) != EOF )
+    while( ( c = getopt( argc, argv, "gedhlmnqusaAvxz:t:H:i:p:f:r:c:b:C:Q:B:S:I:T:O:" ) ) != EOF )
     {
         switch( c )
         {
@@ -612,6 +613,10 @@ int main( int argc, char **argv )
             printf( "%s: Version %s\n", argv[0], VERSION);
             printf( "%s: comments to %s\n", argv[0], EMAIL );
             exit( 0 );
+
+        case 'x':
+            timestamp_flag = 1;
+            break;
 
         case 'f': 
 #ifdef ENABLE_F_OPTION
@@ -1850,7 +1855,9 @@ int wait_for_reply(long wait_time)
     if( per_recv_flag )
     {
         avg = h->total_time / h->num_recv;
-        print_ts();
+        if ( timestamp_flag  ){ 
+            print_ts();
+        }
         printf( "%s%s : [%d], %d bytes, %s ms",
             h->host, h->pad, this_count, result, sprint_tm( this_reply ) );
         printf( " (%s avg, ", sprint_tm( avg ) );
@@ -2862,6 +2869,7 @@ void usage(int is_error)
     fprintf(out, "   -u         show targets that are unreachable\n" );
     fprintf(out, "   -O n       set the type of service (tos) flag on the ICMP packets\n" );
     fprintf(out, "   -v         show version\n" );
+    fprintf(out, "   -x         print timestamps during execution\n" );
     fprintf(out, "   targets    list of targets to check (if no -f specified)\n" );
     fprintf(out, "\n");
     exit(is_error);
