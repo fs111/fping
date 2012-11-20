@@ -1633,7 +1633,8 @@ int send_ping( int s, HOST_ENTRY *h )
 ************************************************************/
 
 
-void print_ts(){
+void print_ts()
+{
   time_t timer;
   char buf [12];
   timer = time(NULL);
