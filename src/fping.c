@@ -1636,10 +1636,10 @@ int send_ping( int s, HOST_ENTRY *h )
 void print_ts()
 {
   time_t timer;
-  char buf [12];
+  char buf [40];
   timer = time(NULL);
   
-  strftime(buf, sizeof(buf), "%H:%M:%S ", localtime(&timer));
+  strftime(buf, sizeof(buf), "%F-%H:%M:%S ", localtime(&timer));
 
   printf("%s", buf);
 }
